@@ -30,22 +30,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SuperShout extends JavaPlugin
   {
-    private Logger logger = this.getLogger();
+    private Logger logger;
     private static Chat chat = null;
     
     public void info (String message)
       {
-        logger.info(message);
+        this.logger.info(message);
       }
     
     public void warning (String message)
       {
-        logger.warning(message);
+        this.logger.warning(message);
       }
     
     public void severe (String message)
       {
-        logger.severe(message);
+        this.logger.severe(message);
       }
     
     private boolean setupChat ()
@@ -55,10 +55,10 @@ public class SuperShout extends JavaPlugin
                 net.milkbowl.vault.chat.Chat.class);
         if (chatProvider != null)
           {
-            chat = chatProvider.getProvider();
+            SuperShout.chat = chatProvider.getProvider();
           }
         
-        return (chat != null);
+        return (SuperShout.chat != null);
       }
     
     @Override
@@ -103,12 +103,13 @@ public class SuperShout extends JavaPlugin
     @Override
     public void onDisable ()
       {
-        this.info("has been disabled!");
+        this.info("is now disabled!");
       }
     
     @Override
     public void onEnable ()
       {
+        this.logger = this.getLogger();
         if (this.setupChat())
           {
             this.info("Vault integration enabled!");
@@ -117,7 +118,8 @@ public class SuperShout extends JavaPlugin
           {
             this.severe("Vault integration not enabled!");
             this.getServer().getPluginManager().disablePlugin(this);
+            return;
           }
-        this.info("has been enabled!");
+        this.info("is now enabled!");
       }
   }
