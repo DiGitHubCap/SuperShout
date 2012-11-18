@@ -84,7 +84,7 @@ public class SuperShout extends JavaPlugin
                     String message = "§7:§f";
                     for (String s : args)
                       {
-                        message += " " + s;
+                        message += " " + s.replace("&", "§");
                       }
                     this.getServer()
                         .broadcastMessage("§4[S] " + name + message);
